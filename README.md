@@ -65,5 +65,4 @@ System:
 
 -Jordy Medina
 -Leonardo Gomez
--Gustavo Matamoros
--Axel Auza
+-Victor Moyano
