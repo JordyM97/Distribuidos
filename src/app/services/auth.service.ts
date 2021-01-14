@@ -30,12 +30,12 @@ export class AuthService {
   login(credentials){
     console.log(credentials);
     console.log(JSON.stringify(credentials));
-    console.time()
+   // console.time()
     return new Promise((resolve, reject) => {
         let headers = new HttpHeaders(); 
         this.http.post('https://axela.pythonanywhere.com/api/rest-auth/', credentials, {headers: headers}) 
           .subscribe(res => {
-            console.timeEnd()
+           // console.timeEnd()
             let data = JSON.parse(JSON.stringify(res));
             this.id=data.id;            
             this.token = "token "+data.token;            
@@ -81,7 +81,7 @@ export class AuthService {
       let headers = new HttpHeaders();
       
       headers = headers.set('content-type','application/json').set('Authorization', String(this.token));
-      console.time('post tok d')
+     // console.time('post tok d')
       this.http.post('https://axela.pythonanywhere.com/api/devices', req, {headers: headers}) //http://127.0.0.1:8000
         .subscribe(res => {
           let data = JSON.parse(JSON.stringify(res));
@@ -90,7 +90,7 @@ export class AuthService {
           });
           console.log(data);
           resolve("ok");
-          console.timeEnd('post tok d')
+         // console.timeEnd('post tok d')
           }, (err) => {
           console.log(err);
           //resolve("ok");
@@ -105,9 +105,9 @@ export class AuthService {
       registration_id: this.deviceToken.token,
       type: "android"
     }
-    console.time('post tok f')
+    //console.time('post tok f')
     this.serviciosCollection.add(req);
-    console.timeEnd('post tok f')
+    //console.timeEnd('post tok f')
   }
   
   
