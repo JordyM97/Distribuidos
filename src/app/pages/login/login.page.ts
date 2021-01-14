@@ -29,6 +29,7 @@ export class LoginPage implements OnInit {
   
   ngOnInit() {
     //localStorage.clear();
+    //this.fbauthservice.login('medinajordy@hotmail.com','12345678');
     if(localStorage.length>0){
       this.loguinAutomatico();
     }
@@ -69,10 +70,10 @@ export class LoginPage implements OnInit {
     localStorage.setItem("correo",credentials.username);
     localStorage.setItem("password",credentials.password);
     localStorage.setItem("firstTime","1");
-    var a= performance.now();
+    //var a= performance.now();
     this.authService.login(credentials).then( (result)=>{
-      var b= performance.now()
-      console.log(b-a)
+      //var b= performance.now()
+     // console.log(b-a)
       console.log(result)
       console.log(this.authService.token);
       if(result=="ok"){

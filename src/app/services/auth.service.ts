@@ -30,10 +30,12 @@ export class AuthService {
   login(credentials){
     console.log(credentials);
     console.log(JSON.stringify(credentials));
+    console.time()
     return new Promise((resolve, reject) => {
         let headers = new HttpHeaders(); 
         this.http.post('https://axela.pythonanywhere.com/api/rest-auth/', credentials, {headers: headers}) 
           .subscribe(res => {
+            console.timeEnd()
             let data = JSON.parse(JSON.stringify(res));
             this.id=data.id;            
             this.token = "token "+data.token;            
