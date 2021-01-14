@@ -42,14 +42,17 @@ export class LoginPage implements OnInit {
   }
 
   on_submit_loginF() {
+   
     this.fbauthservice
       .login(this.correo_electronico, this.contrasenia)
       .then(
         //Respuesta positiva
+        
         (res) => {
           this.router.navigate(["home"]);
           this.correo_electronico = "";
           this.contrasenia = "";
+          
         }
       )
       .catch((err) => {
@@ -58,6 +61,7 @@ export class LoginPage implements OnInit {
       });
   }
   on_submit_login(){
+    
     let credentials= {
       username: this.correo_electronico,
       password: this.contrasenia
@@ -65,17 +69,23 @@ export class LoginPage implements OnInit {
     localStorage.setItem("correo",credentials.username);
     localStorage.setItem("password",credentials.password);
     localStorage.setItem("firstTime","1");
+    var a= performance.now();
     this.authService.login(credentials).then( (result)=>{
+      var b= performance.now()
+      console.log(b-a)
       console.log(result)
       console.log(this.authService.token);
       if(result=="ok"){
+
         if(this.authService.deviceToken!= null){
           this.authService.sendDeviceToken();
+          this.authService.sendDeviceTokenToFB()
         }
         this.appcom.username=this.authService.nombre;
         
         
         this.router.navigate(['home'])
+        
       }
       else{
         this.presentToastFeedback()

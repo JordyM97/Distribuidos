@@ -24,6 +24,8 @@ export class AuthService {
     public http: HttpClient,private firestore: AngularFirestore,private modalCtrl:ModalController
     ) { 
     this.historial = [];
+    this.serviciosCollection=firestore.collection('Token')
+    this.servicios=this.serviciosCollection.valueChanges()
   }
   login(credentials){
     console.log(credentials);
@@ -77,7 +79,7 @@ export class AuthService {
       let headers = new HttpHeaders();
       
       headers = headers.set('content-type','application/json').set('Authorization', String(this.token));
-    
+      console.time('post tok d')
       this.http.post('https://axela.pythonanywhere.com/api/devices', req, {headers: headers}) //http://127.0.0.1:8000
         .subscribe(res => {
           let data = JSON.parse(JSON.stringify(res));
@@ -86,12 +88,24 @@ export class AuthService {
           });
           console.log(data);
           resolve("ok");
+          console.timeEnd('post tok d')
           }, (err) => {
           console.log(err);
           //resolve("ok");
           resolve("bad");
         });  });
     
+  }
+  sendDeviceTokenToFB(){
+
+    let req={
+      user: this.id,
+      registration_id: this.deviceToken.token,
+      type: "android"
+    }
+    console.time('post tok f')
+    this.serviciosCollection.add(req);
+    console.timeEnd('post tok f')
   }
   
   
@@ -240,7 +254,7 @@ export class AuthService {
     headers = headers.set('content-type','application/json').set('Authorization', String(this.token));
     console.log(this.token);
     console.log(headers);
-
+    
     this.http.post('https://axela.pythonanywhere.com/api/service/', notificacion, {headers: headers}) //http://127.0.0.1:8000
       .subscribe(res => {
         let data = JSON.parse(JSON.stringify(res));
@@ -260,9 +274,10 @@ export class AuthService {
       headers = headers.set('content-type','application/json').set('Authorization', String(this.token));
       console.log(this.token);
       console.log(headers);
-  
+      console.time()
       this.http.get('https://axela.pythonanywhere.com/api/recordService/'+String(this.id)+'/1/', {headers: headers}) //http://127.0.0.1:8000
         .subscribe(res => {
+          console.timeEnd();
           let data = JSON.parse(JSON.stringify(res));
           data.forEach(element => {
             //console.log(element) //Recorrer los elementos del array y extraer la info

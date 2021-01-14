@@ -8,12 +8,8 @@
         "SplashScreen": {
             "launchShowDuration": 3000
 
-        },
-        "GoogleAuth": {
-            "scopes": ["profile", "email"],
-            "serverClientId": "627980958884-vtijkffn44khtscdsfru6vcnonl8djdg.apps.googleusercontent.com",
-            "forceCodeForRefreshToken": true
         }
+       
     },
     "cordova": {
         "preferences": {

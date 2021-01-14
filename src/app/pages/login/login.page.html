@@ -23,7 +23,7 @@
         (click)="iconPassword()"
       ></ion-icon>
     </ion-item>
-
+    
     <div class="ion-text-center ion-margin-top">
       <a class="content-link" routerLink="/resetpss">
         <small>¿Olvidó su contraseña? Recuperar Contraseña</small>
@@ -34,7 +34,11 @@
         <small>¿No tienes una cuenta? Registrate</small>
       </a>
     </div>
+    <ion-button expand="full" (click)="on_submit_loginF()" >
+      INICIAR EN FIREBASE
+    </ion-button>
   </div>
+  
   <ion-grid>
 <ion-row>
     <ion-button (click)="loginFacebook()">
@@ -48,6 +52,7 @@
   
 </ion-row>
 </ion-grid>
+  
   <ion-button expand="full" (click)="on_submit_login()" class="boton">
     INICIAR SESIÓN
   </ion-button>

@@ -96,10 +96,17 @@ export class HomePage implements OnInit {
     this.loadMap();
     this.showTerms();
     //this.watchDriverPos(31);
+    this.getservicios()
+  }
+  getservicios(){
+    console.time()
+    this.firestore.collection(`/Servicio`).valueChanges()
+    console.timeEnd()
   }
   watchDriverPos(id: any){
+    console.time()
     this.PositionD= this.firestore.doc(`/posicion/${id}`).valueChanges()
-    
+    console.timeEnd()
     this.PositionD.subscribe(val=>{ 
       console.log(val.location)
       const myLatLng = {

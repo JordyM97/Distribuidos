@@ -16,12 +16,18 @@ export class FBAuthService {
 
   
   login(correo_electronico: string, contrasenia: string) {
+    
     return new Promise(
       (resolve, reject) => {
+        var a =performance.now()
         this.AFauth.signInWithEmailAndPassword(correo_electronico, contrasenia)
           .then(res => {
+            var b= performance.now()
+            console.log(b-a)
+            console.timeEnd();
             console.log(res)
             resolve(res)
+            
           }).catch(
             err => {
               console.error('ERROR> En la auth. Linea 16 in auth.service.ts' + err)
