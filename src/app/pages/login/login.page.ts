@@ -43,24 +43,25 @@ export class LoginPage implements OnInit {
   }
 
   on_submit_loginF() {
-   
-    this.fbauthservice
-      .login(this.correo_electronico, this.contrasenia)
-      .then(
-        //Respuesta positiva
-        
-        (res) => {
-          this.router.navigate(["home"]);
-          this.correo_electronico = "";
-          this.contrasenia = "";
+
+      console.log("S")
+      this.fbauthservice
+        .login(this.correo_electronico, this.contrasenia)
+        .then(
+          //Respuesta positiva
           
-        }
-      )
-      .catch((err) => {
-        //Verificar si es un Network Error
-        this.presentToastFeedback();
-      });
-  }
+          (res) => {
+            this.router.navigate(["home"]);
+            this.correo_electronico = "";
+            this.contrasenia = "";
+            
+          }
+        )
+        .catch((err) => {
+          //Verificar si es un Network Error
+          this.presentToastFeedback();
+        });
+    }
   on_submit_login(){
     
     let credentials= {
