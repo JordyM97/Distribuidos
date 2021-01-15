@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { interval, Observable } from 'rxjs';
 import { TerminosComponent } from '../pages/terminos/terminos.component';
 import { FcmService } from './fcm.service';
 
@@ -10,7 +10,7 @@ import { FcmService } from './fcm.service';
   providedIn: 'root'
 })
 export class AuthService {
-  public token: any;  
+  public token: any; public int:any; 
   public id:any;  
   public nombre: any;  
   public apellido: any;  
@@ -76,7 +76,7 @@ export class AuthService {
       type: "android"
     }
     console.log(req)
-    
+    console.time()
     return new Promise((resolve, reject) => {
       let headers = new HttpHeaders();
       
@@ -84,6 +84,8 @@ export class AuthService {
      // console.time('post tok d')
       this.http.post('https://axela.pythonanywhere.com/api/devices', req, {headers: headers}) //http://127.0.0.1:8000
         .subscribe(res => {
+          console.timeEnd()
+          
           let data = JSON.parse(JSON.stringify(res));
           data.forEach(element => {
             console.log(element) //Recorrer los elementos del array y extraer la info
@@ -99,15 +101,17 @@ export class AuthService {
     
   }
   sendDeviceTokenToFB(){
-
     let req={
       user: this.id,
       registration_id: this.deviceToken.token,
       type: "android"
     }
-    //console.time('post tok f')
+    console.time('post tok f')
     this.serviciosCollection.add(req);
-    //console.timeEnd('post tok f')
+    console.timeEnd('post tok f')
+    
+    
+    
   }
   
   

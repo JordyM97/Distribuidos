@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SelectDateComponent } from '../components/select-date/select-date.component';
 import { interval } from 'rxjs';
 import * as firebase from 'firebase';
+import { ConsoleReporter } from 'jasmine';
+import { Console } from 'console';
 declare var google;
 
 interface Marker {
@@ -76,7 +78,7 @@ export class HomePage implements OnInit {
     public platform: Platform,    public router: Router,    public authService: AuthService,private toastController: ToastController
   ) {
     this.platform.backButton.subscribeWithPriority(10, () => {
-      this.router.navigateByUrl('Home')
+      this.router.navigateByUrl('Home');
     });
     //GEt colllection from firestore                                            
     //this.Servicios = firestore.collection('Pruebas').valueChanges();    //this.Servicios.subscribe(value =>{console.log(value)});
@@ -97,11 +99,15 @@ export class HomePage implements OnInit {
     this.showTerms();
     //this.watchDriverPos(31);
     this.getservicios()
+    console.timeEnd();
   }
   getservicios(){
+    console.log('fb serv')
     console.time()
-    this.firestore.collection(`/Servicio`).valueChanges()
+    var a = this.firestore.collection(`/Servicio`);
+    console.log(a.valueChanges()  )
     console.timeEnd()
+    
   }
   watchDriverPos(id: any){
     console.time()
@@ -148,7 +154,7 @@ export class HomePage implements OnInit {
           }
         })  
 
-        this.addPosition(this.authService.id,JSON.stringify(myLatLng))
+        //this.addPosition(this.authService.id,JSON.stringify(myLatLng))
     })
     var styledMapType = new google.maps.StyledMapType(    [      {  "featureType": "administrative",          "elementType": "geometry",          "stylers": [            {              "visibility": "off"            }          ]        },{          "featureType": "administrative.land_parcel",
       "elementType": "labels.text",          "stylers": [            {
